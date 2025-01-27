@@ -432,4 +432,8 @@ const updateLyrics = function () {
     currentLyricIndex--;
   }
   lyricsContainer.textContent = lyrics[currentLyricIndex].text;
+  lyricsContainer.style.opacity = 1;
+  setTimeout(() => {
+    lyricsContainer.style.opacity = 0;
+  }, 2000);
 }
