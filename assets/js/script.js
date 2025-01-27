@@ -226,6 +226,7 @@ const updateRunningTime = function () {
 
   updateRangeFill();
   isMusicEnd();
+  updateLyrics();
 }
 
 
@@ -408,3 +409,23 @@ const muteVolume = function () {
 }
 
 playerVolumeBtn.addEventListener("click", muteVolume);
+
+
+/** Load and display lyrics */
+const lyricsContainer = document.querySelector("[data-lyrics]");
+let lyrics = [];
+let currentLyricIndex = 0;
+
+fetch('/assets/lyrics/lyrics.json')
+  .then(response => response.json())
+  .then(data => {
+    lyrics = data;
+  });
+
+const updateLyrics = function () {
+  const currentTime = audioSource.currentTime;
+  if (currentLyricIndex < lyrics.length - 1 && currentTime >= lyrics[currentLyricIndex + 1].time) {
+    currentLyricIndex++;
+    lyricsContainer.textContent = lyrics[currentLyricIndex].text;
+  }
+}

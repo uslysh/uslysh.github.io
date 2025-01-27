@@ -1,0 +1,6 @@
+[
+  { "time": 0, "text": "Intro" },
+  { "time": 10, "text": "First line of the song" },
+  { "time": 20, "text": "Second line of the song" },
+  { "time": 30, "text": "Third line of the song" }
+]
