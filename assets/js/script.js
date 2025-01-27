@@ -260,6 +260,7 @@ addEventOnElements(ranges, "input", updateRangeFill);
 const seek = function () {
   audioSource.currentTime = playerSeekRange.value;
   playerRunningTime.textContent = getTimecode(playerSeekRange.value);
+  updateLyrics();
 }
 
 playerSeekRange.addEventListener("input", seek);
@@ -424,8 +425,11 @@ fetch('/assets/lyrics/lyrics.json')
 
 const updateLyrics = function () {
   const currentTime = audioSource.currentTime;
-  if (currentLyricIndex < lyrics.length - 1 && currentTime >= lyrics[currentLyricIndex + 1].time) {
+  while (currentLyricIndex < lyrics.length - 1 && currentTime >= lyrics[currentLyricIndex + 1].time) {
     currentLyricIndex++;
-    lyricsContainer.textContent = lyrics[currentLyricIndex].text;
   }
+  while (currentLyricIndex > 0 && currentTime < lyrics[currentLyricIndex].time) {
+    currentLyricIndex--;
+  }
+  lyricsContainer.textContent = lyrics[currentLyricIndex].text;
 }
